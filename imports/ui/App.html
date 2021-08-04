@@ -1,0 +1,57 @@
+<body>
+    {{> mainContainer }}
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+<template name="mainContainer">
+    <div>
+        {{> navbar}}
+        <div class="container mt-5">
+            <h2>Discussion Board</h2>
+            {{#if currentUser}} 
+                {{> form }}
+
+                <div>
+                    {{#each comments}}
+                        {{> comment}}
+                    {{/each}}
+                </div>
+            {{else}}
+                <h6 class="text-secondary mt-5">Please log in to view comments or post a comment!</h6>
+            {{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="navbar">
+    <nav class="navbar navbar-dark bg-dark nav-header">
+        <div class="container">
+            <header>
+                <button class="btn btn-primary">
+                    {{> loginButtons}}
+                </button>
+            </header>
+        </div>
+    </nav>
+</template>
+
+<template name="comment">
+    <div class="my-4 bg-light card-box">
+        <div class="card-body">
+            <p class="card-title text-primary">{{owner}}</p>
+            <p class="card-text">{{text}}</p>
+            <p class="card-text"><small class="text-muted">{{createdAtUi}}</small></p>
+        </div>
+    </div>
+</template>
+
+<template name="form">
+    <form class="comment-form form-inline">
+        <div class="form-group mr-2 mb-2">
+            <input class="form-control" type="text" name="text" placeholder="Add a comment..." />
+        </div>
+        <button class="btn btn-primary custom-btn-color mb-2" type="submit">Send</button>
+    </form>
+</template>
